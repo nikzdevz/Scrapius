@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face{
+font-family: trial;
+src: url('Raleway-Regular.ttf');
+font-weight: bold;
+}
+
+h2{
+    display: block;
+    font-family: trial, serif;
+    text-align: center;
+    font-size: 75px;
+    margin-top: 20px;
+}
