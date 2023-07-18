@@ -18,28 +18,38 @@
         <div class="box left-box">
             <!-- Content for the left box -->
             <h2>Add new site</h2>
-              <form>
+              <form id="myForm" method="POST" action="submit">
                 <div class="form-group">
-                    <input type="text" id="site" required />
+                    <input type="text" id="site" name="site" required />
                     <label for="site">Site</label>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="id" required />
+                    <input type="text" id="id" name="id" required />
                     <label for="id">ID</label>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="other" required />
+                    <input type="text" id="other" name="other" required />
                     <label for="other">Other Field</label>
                 </div>
-                <button type="submit" class="submit-button">Submit</button>
+                <button type="submit" value="Submit" class="submit-button">Submit</button>
              </form>
         </div>
         <div class="box right-box">
             <!-- Content for the right box -->
-            <h2>Right Box</h2>
-            <p>This is the content of the right box.</p>
+            <div class="list-container">
+                {% for item in regData %}
+                    <div class="list-item">
+                        <div class="item-info">
+                            <h3 class="item-title">{{ item['id'] }}</h3>
+                            <p class="item-subtitle">{{ item['site'] }}</p>
+                        </div>
+                        <span class="cross-icon">&#x2716;</span>
+                    </div>
+                {% endfor %}
+
+                <!-- Add more list items as needed -->
+            </div>
         </div>
     </div>
-
 </body>
 </html>

@@ -109,3 +109,25 @@
     .submit-button:hover {
         background-color: darkred;
     }
+
+
+
+
+.list-container {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.list-item .cross-icon {
+    cursor: pointer;
+}
