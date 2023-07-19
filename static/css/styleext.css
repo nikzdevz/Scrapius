@@ -1,0 +1,24 @@
+@font-face{
+    font-family: headRailway;
+    src: url('Raleway-Regular.ttf');
+    font-weight: bold;
+}
+@font-face{
+    font-family: poppin_light;
+    src: url('Poppins-Light.ttf');
+    font-weight: bold;
+}
+
+#scrapHeading{
+    font-family: headRailway;
+}
+#docu_text_title{
+    font-family: poppin_light;
+}
+#fixedSideBar{
+    height: max-content;
+    position: sticky;
+    float: left;
+    left: 0;
+    top: 0;
+}
