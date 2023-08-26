@@ -1,0 +1,33 @@
+
+{
+  "https://www.kdnuggets.com/": {
+    "parent": {
+      "type": "div",
+      "atr": {
+        "class": "li-has-thumb__content"
+      }
+    },
+    "heading": {
+      "type": "a",
+      "atr": {
+      "class": "li-has-thumb__content"
+        }
+    },
+    "content": {
+      "type": "p",
+      "atr": {
+        "class": "li-has-thumb-content"
+      }
+    },
+    "img": "img-data",
+    "url": {
+      "type": "img",
+      "atr": {
+        "class": "li-has-thumb"
+      }
+    }
+  }
+}
+
+
+
