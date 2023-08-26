@@ -14,7 +14,13 @@ def manageSite():
             existing_data = json.load(file)
     except FileNotFoundError:
         pass
-    return render_template('manageSite.html', regData=existing_data)
+    return render_template('manage.html', regData=existing_data)
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    return render_template('Dashboard.html')
+
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
