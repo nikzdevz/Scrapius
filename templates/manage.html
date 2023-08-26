@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/manage.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content site">
+            <h2>Manage Site</h2>
+
+            <form action="" method="post">
+            <div class="input-box"></div>
+                <div class="url">
+                    <label for="url">URL </label><br>
+                    <input type="url" placeholder="Enter URL" name="url" id="url">
+                </div>
+                <div class="tag1">
+                    <label for="tag">Choose a tag:</label><br>
+                    <select id="tag" name="tag">
+                    <option value="parent">Parent Tag</option>
+                    <option value="heading">Heading Tag</option>
+                    <option value="image">Image Tag</option>
+                    <option value="link">Link Tag</option>
+                    </select>
+                    <input type="text" placeholder="Enter schema" name="tag1" id="tag1">
+                </div>
+                
+                <div class="tag2">
+                    <label for="tag">Choose a tag:</label><br>
+                    <select id="tag" name="tag">
+                    <option value="parent">Parent Tag</option>
+                    <option value="heading">Heading Tag</option>
+                    <option value="image">Image Tag</option>
+                    <option value="link">Link Tag</option>
+                    </select>
+                    <input type="text" placeholder="Enter schema" name="tag2" id="tag2">
+                </div>
+                
+                <div class="tag3">
+                    <label for="tag">Choose a tag:</label><br>
+                    <select id="tag" name="tag">
+                    <option value="parent">Parent Tag</option>
+                    <option value="heading">Heading Tag</option>
+                    <option value="image">Image Tag</option>
+                    <option value="link">Link Tag</option>
+                    </select>
+                    <input type="text" placeholder="Enter schema" name="tag3" id="tag3">
+                </div>
+                
+                <div class="btn">
+                    <input type="button" value="ADD">
+                    <input type="button" value="TEST">
+                </div>    
+            </form>
+        </div>
+    </div>    
+</body>
+</html>
