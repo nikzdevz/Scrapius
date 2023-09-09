@@ -36,6 +36,11 @@ def scrap_handler(url, m_attrs):
             db_connection.commit()
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8c7ef8cb1215b6163f3e11f63bd5b0b5ca0e6d28
 #
 # READING JSON FILE - SCHEMA
 #
