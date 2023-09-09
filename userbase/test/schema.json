@@ -1,0 +1,22 @@
+{
+  "https://economictimes.indiatimes.com/news/india": {
+    "parent": {
+      "type": "div",
+      "atr": {
+        "class": "eachStory"
+      }
+    },
+    "heading": {
+      "type": "h3",
+      "atr": {
+        "class": ""
+      }
+    },
+    "content": {
+      "type": "p",
+      "atr": {
+        "class": ""
+      }
+    }
+  }
+}
