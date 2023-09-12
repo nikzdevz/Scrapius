@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 
-@app.route('/userRegister',methods=['GET','POST'] )
+@app.route('/userRegister', methods=['GET', 'POST'])
 def userRegister():
     if request.method == 'POST':
         email = request.form['mail']
@@ -18,7 +18,7 @@ def userRegister():
         db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="ShanuYadav",
+            passwd="",
             database="scrapiusdb"
         )
         db_cursor = db_connection.cursor(buffered=True)
@@ -28,29 +28,30 @@ def userRegister():
         db_cursor.execute(query, (email, username))
         myresult = db_cursor.fetchall()
 
-        if len(myresult) == 0 :
+        if len(myresult) == 0:
             query = "Insert into userbase (name, email, password, username) values (%s, %s, %s, %s)"
-            db_cursor.execute(query, ('aa', email,password,username))
+            db_cursor.execute(query, ('aa', email, password, username))
             db_connection.commit()
             return redirect('/dashshri')
-        else :
+        else:
             param = {"isUniqueUser": "True"}
-            for item in myresult :
+            for item in myresult:
                 if item[1] == email:
                     param["isUniqueUser"] = 'False'
             return redirect(url_for('/', messages=json.dumps(param)))
 
-@app.route('/userLogin', methods=['GET','POST'])
+
+@app.route('/userLogin', methods=['GET', 'POST'])
 def userLogin():
     if request.method == 'POST':
         email = request.form['mail']
         password = request.form['password']
-        print("Login => " + email + "    " + password)
+        # print("Login => " + email + "    " + password)
 
         db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="ShanuYadav",
+            passwd="",
             database="scrapiusdb"
         )
         db_cursor = db_connection.cursor(buffered=True)
@@ -64,8 +65,8 @@ def userLogin():
         if isverified:
             return redirect('/dashshri')
         else:
-            return redirect('/')
-
+            param = str(isverified)
+            return redirect(url_for('loginFailed', name=param))
 
 
 @app.route('/manageSite', methods=['GET', 'POST'])
@@ -78,9 +79,6 @@ def manageSite():
     except FileNotFoundError:
         pass
     return render_template('manage.html', regData=existing_data)
-
-
-
 
 
 @app.route('/dashshri', methods=['GET', 'POST'])
@@ -112,14 +110,24 @@ def submit():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    existing_data = []
-    json_file = "sitedata.json"
-    try:
-        with open(json_file) as file:
-            existing_data = json.load(file)
-    except FileNotFoundError:
-        pass
-    return render_template('index.html', regData=existing_data)
+    # existing_data = []
+    # json_file = "sitedata.json"
+    # try:
+    #     with open(json_file) as file:
+    #         existing_data = json.load(file)
+    # except FileNotFoundError:
+    #     pass
+    # return render_template('index.html', regData=existing_data)
+    return render_template('index.html')
+
+
+@app.route('/loginFailed')
+def loginFailed():
+    isVerified = request.args.get('name')
+    print(isVerified)
+    if isVerified is None:
+        return render_template('index.html')
+    return render_template('index.html', regData=isVerified)
 
 
 if __name__ == "__main__":
