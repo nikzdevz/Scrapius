@@ -11,7 +11,7 @@
         <div class="content site">
             <h2>Manage Site</h2>
 
-            <form action="" method="post">
+            <form action="/addSite" method="post" id="myAddSiteForm">
             <div class="input-box"></div>
                 <div class="url">
                     <label for="url">URL </label><br>
@@ -25,18 +25,18 @@
                     <option value="image">Image Tag</option>
                     <option value="link">Link Tag</option>
                     </select>
-                    <input type="text" placeholder="Enter schema" name="tag1" id="tag1">
+                    <input type="text" placeholder="Enter schema" id="tag1" name="parent">
                 </div>
                 
                 <div class="tag2">
                     <label for="tag">Choose a tag:</label><br>
                     <select id="tag" name="tag">
-                    <option value="parent">Parent Tag</option>
+                    <option value="parent" >Parent Tag</option>
                     <option value="heading">Heading Tag</option>
                     <option value="image">Image Tag</option>
                     <option value="link">Link Tag</option>
                     </select>
-                    <input type="text" placeholder="Enter schema" name="tag2" id="tag2">
+                    <input type="text" placeholder="Enter schema" id="tag2" name="heading">
                 </div>
                 
                 <div class="tag3">
@@ -47,15 +47,24 @@
                     <option value="image">Image Tag</option>
                     <option value="link">Link Tag</option>
                     </select>
-                    <input type="text" placeholder="Enter schema" name="tag3" id="tag3">
+                    <input type="text" placeholder="Enter schema" id="tag3" name="link">
                 </div>
                 
                 <div class="btn">
-                    <input type="button" value="ADD">
+                    <button type="button" id="siteAddButton">Add Site</button>
                     <input type="button" value="TEST">
                 </div>    
             </form>
         </div>
-    </div>    
+    </div>
+    <script>
+        // Attach a click event handler to the custom button
+        document.getElementById("siteAddButton").addEventListener("click", function() {
+            // Get the form element by its ID
+            var form = document.getElementById("myAddSiteForm");
+            // Programmatically submit the form
+            form.submit();
+        });
+    </script>
 </body>
 </html>

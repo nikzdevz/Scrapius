@@ -12,12 +12,14 @@
     </head>
     <body>
         <header>
-            <h2 class="logo">Scrapius <p>{{ regData }}</p></h2>
+            <h2 class="logo">Scrapius <p>{{regData}}</p></h2>
             <nav class="navigation">
                 <a href="#">Home</a>
                 <a href="#">About</a>
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
+                <a href="#">{{ session.loggedInEmail }}</a>
+
                 <button class="btnLogin-popup">Login</button>
             </nav>
         </header>

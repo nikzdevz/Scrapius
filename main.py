@@ -1,12 +1,36 @@
 import json
 import os
+import asyncio
 import xml.etree.ElementTree as ET
 
 import mysql
 import mysql.connector
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+
+import siteSubmission
+import queueHandler
+from flask_session import Session
 
 app = Flask(__name__)
+
+
+@app.route('/blog/<parameter_name>')
+def blog(parameter_name):
+    db_connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="",
+        database="scrapiusdb"
+    )
+    param = parameter_name
+    db_cursor = db_connection.cursor(buffered=True)
+    query = "select Site,data from scrapeddata where user=(%s)"
+    db_cursor.execute(query, (param,))
+    myresult = db_cursor.fetchall()
+    if len(myresult) == 0:
+        return f'No Data Found';
+    else:
+        return f'My Result => {myresult}'
 
 
 @app.route('/userRegister', methods=['GET', 'POST'])
@@ -32,7 +56,8 @@ def userRegister():
             query = "Insert into userbase (name, email, password, username) values (%s, %s, %s, %s)"
             db_cursor.execute(query, ('aa', email, password, username))
             db_connection.commit()
-            return redirect('/dashshri')
+            session['loggedInEmail'] = email;
+            return redirect('/dashboard')
         else:
             param = {"isUniqueUser": "True"}
             for item in myresult:
@@ -58,30 +83,50 @@ def userLogin():
         query = "select email,password from userbase"
         db_cursor.execute(query)
         myresult = db_cursor.fetchall()
-        isverified = False
+        isVerified = 0
         for item in myresult:
-            if (item[0] == email) and (item[1] == password):
-                isverified = True
-        if isverified:
-            return redirect('/dashshri')
+            if item[0] == email:
+                if item[1] == password:
+                    isVerified = 2
+                else:
+                    isVerified = 1
+        if isVerified == 2:
+            session['loggedInEmail'] = email;
+            return redirect('/dashboard')
+        elif isVerified == 1:
+            # param = [str(isVerified),str(isVerified),str(isVerified)]
+            return render_template('index.html', regData='Incorrect password')
         else:
-            param = str(isverified)
-            return redirect(url_for('loginFailed', name=param))
+            return render_template('index.html', regData='Email not found')
 
 
 @app.route('/manageSite', methods=['GET', 'POST'])
 def manageSite():
-    json_file = "sitedata.json"
-    existing_data = []
-    try:
-        with open(json_file) as file:
-            existing_data = json.load(file)
-    except FileNotFoundError:
-        pass
-    return render_template('manage.html', regData=existing_data)
+    # print(session['loggedInEmail'])
+    # json_file = "sitedata.json"
+    # existing_data = []
+    # try:
+    #     with open(json_file) as file:
+    #         existing_data = json.load(file)
+    # except FileNotFoundError:
+    #     pass
+    return render_template('manage.html')
 
 
-@app.route('/dashshri', methods=['GET', 'POST'])
+@app.route('/addSite', methods=['GET', 'POST'])
+def addSite():
+    userEmail = session['loggedInEmail']
+    mUrl = request.form['url']
+    sData = {
+        "parent": request.form['parent'],
+        "heading": request.form['heading'],
+        "link": request.form['link']
+    }
+    addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
+    return redirect('/dashboard')
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template('Dashboard.html')
 
@@ -118,17 +163,13 @@ def index():
     # except FileNotFoundError:
     #     pass
     # return render_template('index.html', regData=existing_data)
+    if session.get('loggedInEmail') is not None:
+        print(session['loggedInEmail'])
     return render_template('index.html')
 
 
-@app.route('/loginFailed')
-def loginFailed():
-    isVerified = request.args.get('name')
-    print(isVerified)
-    if isVerified is None:
-        return render_template('index.html')
-    return render_template('index.html', regData=isVerified)
-
-
 if __name__ == "__main__":
+    app.config["SESSION_PERMANENT"] = False
+    app.config["SESSION_TYPE"] = "filesystem"
+    Session(app)
     app.run(debug=True)

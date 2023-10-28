@@ -1,54 +1,50 @@
 import json
+import os
 
 from bs4 import BeautifulSoup
 
-mUrl = ""
-mData = {}
 
+class addSiteSubmission:
 
-def __init__(self, url, sdata,username):
-    self.mUrl = url
-    self.mData = sdata
-    # self.mUrl = "www.knougths.com"
-    # self.mData = {
-    #     "parent": '<div id = "parent-div" class="li-has-thumb__content"></div>',
-    #     "heading": '<a href="https://www.kdnuggets.com/2023/08/whose-responsibility-get-generative-ai-right.html");"> <b>Whose Responsibility Is It To Get Generative AI Right? </b> </a>',
-    #     "content": '<p>The limitless possibilities of the technology that transcends boundaries.</p>'
-    # }
+    def __init__(self, username, mUrl, mData):
+        mSchemaDict = {mUrl: {}}
+        for key in mData.keys():
+            soup = BeautifulSoup(mData[key], 'html.parser')
+            outerTag = soup.find()
+            if outerTag.has_attr('class'):
+                mSchemaDict[mUrl][key] = {
+                    "type": outerTag.name,
+                    "atr": {
+                        "id": outerTag.get('id'),
+                        "class": outerTag.get('class')[0]
+                    }
+                }
+            else:
+                mSchemaDict[mUrl][key] = {
+                    "type": outerTag.name,
+                    "atr": {
+                        "class": ""
+                    }
+                }
 
-
-# mUrl = "www.axunijfnk.com"
-# mData = {
-#     "parent": '<div id = "parent-div" class="li-has-thumb__content"></div>',
-#     "heading": '<a href="https://www.kdnuggets.com/2023/08/whose-responsibility-get-generative-ai-right.html");"> <b>Whose Responsibility Is It To Get Generative AI Right? </b> </a>',
-#     "content": '<p>The limitless possibilities of the technology that transcends boundaries.</p>',
-#     "img": '<img id = "scrap-img" src="abcd.jpg" class="kk">'
-# }
-
-mSchemaDict = {}
-mSchemaDict[mUrl] = {}
-for key in mData.keys():
-    soup = BeautifulSoup(mData[key], 'html.parser')
-    outerTag = soup.find()
-    if outerTag.has_attr('class'):
-        mSchemaDict[mUrl][key] = {
-            "type": outerTag.name,
-            "atr": {
-                "id" : outerTag.get('id'),
-                "class": outerTag.get('class')[0]
-            }
-        }
-    else:
-        mSchemaDict[mUrl][key] = {
-            "type": outerTag.name,
-            "atr": {
-                "class": ""
-            }
-        }
-
-f = open('schema.json')
-data = json.load(f)
-data[mUrl] = mSchemaDict[mUrl]
-print(data)
-with open("schema.json", "w") as file:
-    json.dump(data, file)
+        file_name = 'userbase/' + username
+        if not os.path.exists(file_name):
+            os.makedirs(file_name)
+        file_name = file_name + "/schema.json"
+        if not os.path.exists(file_name):
+            # Create the file if it doesn't exist
+            with open(file_name, 'w') as file:
+                file.write("{}")
+        f = open(file_name)
+        data = json.load(f)
+        data[mUrl] = mSchemaDict[mUrl]
+        print(data)
+        with open(file_name, "w") as file:
+            json.dump(data, file)
+        with open('queue.json', 'r') as file:
+            dataqueue = json.load(file)
+        mSchemaDict[mUrl]['url'] = mUrl
+        mSchemaDict[mUrl]['username'] = username
+        dataqueue.append(mSchemaDict[mUrl])
+        with open('queue.json', 'w') as file:
+            json.dump(dataqueue, file, indent=4)
