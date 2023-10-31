@@ -92,7 +92,7 @@ def userLogin():
                 else:
                     isVerified = 1
         if isVerified == 2:
-            session['loggedInEmail'] = email;
+            session['loggedInEmail'] = email
             return redirect('/dashboard')
         elif isVerified == 1:
             # param = [str(isVerified),str(isVerified),str(isVerified)]
@@ -113,35 +113,45 @@ def manageSite():
     #     pass
     return render_template('manage.html')
 
+
 def attrValidator(element1):
     soup = BeautifulSoup(element1, 'html.parser')
     outerTag = soup.find()
     if outerTag.has_attr('class'):
-        if len(outerTag.get('class'))>0:
+        if len(outerTag.get('class')) > 0:
             return True
     elif outerTag.has_attr('id'):
-        if len(outerTag.get('id'))>0:
+        if len(outerTag.get('id')) > 0:
             return True
     else:
         return False
-
-
 
 
 @app.route('/addSite', methods=['GET', 'POST'])
 def addSite():
     userEmail = session['loggedInEmail']
     mUrl = request.form['url']
-    if attrValidator():
+    msg = ""
+    paramKey = request.form.keys()
+    if 'parent' in paramKey and not attrValidator(request.form['parent']):
+        msg = "Parent do not contains id or class attribute."
+    elif 'heading' in paramKey and not attrValidator(request.form['heading']):
+        msg = "Heading do not contains id or class attribute."
+    elif 'link' in paramKey and not attrValidator(request.form['link']):
+        msg = "Link do not contains id or class attribute."
+    elif 'img' in paramKey and not attrValidator(request.form['img']):
+        msg = "Image do not contains id or class attribute."
+    if msg == "":
+        sData = {
+            "parent": request.form['parent'],
+            "heading": request.form['heading'],
+            "link": request.form['link']
+        }
+        addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
+        return redirect('/dashboard')
+    else :
+        return render_template('manage.html', regData=msg)
 
-    sData = {
-        "parent": request.form['parent'],
-        "heading": request.form['heading'],
-        "link": request.form['link']
-    }
-
-    addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
-    return redirect('/dashboard')
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
