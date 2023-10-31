@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 
 import mysql
 import mysql.connector
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import siteSubmission
@@ -112,16 +113,33 @@ def manageSite():
     #     pass
     return render_template('manage.html')
 
+def attrValidator(element1):
+    soup = BeautifulSoup(element1, 'html.parser')
+    outerTag = soup.find()
+    if outerTag.has_attr('class'):
+        if len(outerTag.get('class'))>0:
+            return True
+    elif outerTag.has_attr('id'):
+        if len(outerTag.get('id'))>0:
+            return True
+    else:
+        return False
+
+
+
 
 @app.route('/addSite', methods=['GET', 'POST'])
 def addSite():
     userEmail = session['loggedInEmail']
     mUrl = request.form['url']
+    if attrValidator():
+
     sData = {
         "parent": request.form['parent'],
         "heading": request.form['heading'],
         "link": request.form['link']
     }
+
     addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
     return redirect('/dashboard')
 
