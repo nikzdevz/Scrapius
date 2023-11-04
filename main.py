@@ -1,7 +1,4 @@
 import json
-import os
-import asyncio
-import xml.etree.ElementTree as ET
 
 import mysql
 import mysql.connector
@@ -9,10 +6,30 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import siteSubmission
+import testingtool
 import queueHandler
 from flask_session import Session
 
 app = Flask(__name__)
+
+
+#Edit Below
+@app.route('/testing')
+def testing():
+    if request.method == 'POST':
+        paramKey = request.form.keys()
+        sData = {
+            "url" : request.form['url'] if 'url' in paramKey else None,
+            "parent": request.form['parent'] if 'parent' in paramKey else None,
+            "heading": request.form['heading'] if 'heading' in paramKey else None,
+            "link": request.form['link'] if 'link' in paramKey else None,
+            "image" : request.form['image'] if 'image' in paramKey else None
+        }
+        testScrap = testingtool.TestMyScraping(sData)
+
+    return ""
+# Edit above
+
 
 
 @app.route('/blog/<parameter_name>')
