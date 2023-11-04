@@ -20,27 +20,27 @@ class TestMyScraping:
             item = item+1
         print(json.dumps(output,indent=4))
 
-
-data = {
-    "url" : "https://economictimes.indiatimes.com/news/india",
-    "parent": {
-        "type": "div",
-        "atr": {
-            "id": None,
-            "class": "eachStory"
-        }
-    },
-    "heading": {
-        "type": "a",
-        "atr": {
-            "class": ""
-        }
-    },
-    "link": {
-        "type": "a",
-        "atr": {
-            "class": ""
-        }
-    }
-}
-testMy = TestMyScraping(data)
+#
+# data = {
+#     "url" : "https://economictimes.indiatimes.com/news/india",
+#     "parent": {
+#         "type": "div",
+#         "atr": {
+#             "id": None,
+#             "class": "eachStory"
+#         }
+#     },
+#     "heading": {
+#         "type": "a",
+#         "atr": {
+#             "class": ""
+#         }
+#     },
+#     "link": {
+#         "type": "a",
+#         "atr": {
+#             "class": ""
+#         }
+#     }
+# }
+# testMy = TestMyScraping(data)
