@@ -18,16 +18,58 @@ app = Flask(__name__)
 def testing():
     if request.method == 'POST':
         paramKey = request.form.keys()
-        sData = {
-            "url" : request.form['url'] if 'url' in paramKey else None,
-            "parent": request.form['parent'] if 'parent' in paramKey else None,
-            "heading": request.form['heading'] if 'heading' in paramKey else None,
-            "link": request.form['link'] if 'link' in paramKey else None,
-            "image" : request.form['image'] if 'image' in paramKey else None
-        }
+        sData = {}
+        for key in paramKey :
+            if key == 'url' :
+                sData["url"] = request.form[key]
+            elif request.form[key] != "":
+                if attrValidator(request.form[key]):
+                    return f'{request.form[key]} do not contains id or class attribute.'
+                else :
+                    soup = BeautifulSoup(request.form[key], 'html.parser')
+                    outerTag = soup.find()
+                    sData[key] = {
+                        "type" : outerTag,
+                        "atr" : {
+                            "id": outerTag.get('id'),
+                            "class": outerTag.get('class')[0]
+                        }
+                    }
         testScrap = testingtool.TestMyScraping(sData)
 
     return ""
+# {
+#     url : {
+#         "parent" : {
+#             "type" : outerTag,
+#             "atr" : {
+#                 "id" : outerTag.get('id'),
+#                 "class" : outerTag.get('class')
+#             }
+#         },
+#         "heading" : {
+#             ....
+#         }
+#     }
+# }
+#
+# {
+#     "url" : url,
+#     "parent" : {
+#         "type" : outerTag,
+#         "atr" : {
+#             "id" : outerTag.get('id'),
+#             "class" : outerTag.get('class')
+#         }
+#     },
+#     "heading" : {
+#         ....
+#     }
+# }
+
+
+
+
 # Edit above
 
 

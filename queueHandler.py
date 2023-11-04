@@ -51,7 +51,7 @@ class scrap_handler:
             db_cursor = db_connection.cursor(buffered=True)
             r = requests.get(data['url'])
             soup = BeautifulSoup(r.content, 'html.parser')
-            m_attrs =  {**data};
+            m_attrs =  {**data}; # ** is used to duplicate complete variable
             url = data['url']
             username = data['username']
             m_attrs.pop("username")
