@@ -1,4 +1,5 @@
 import json
+from types import NoneType
 
 import mysql
 import mysql.connector
@@ -13,31 +14,38 @@ from flask_session import Session
 app = Flask(__name__)
 
 
-#Edit Below
-@app.route('/testing')
+@app.route('/testTool')
+def testTool():
+    return render_template('testTool.html')
+
+
+# Edit Below
+@app.route('/testing', methods=['POST'])
 def testing():
     if request.method == 'POST':
         paramKey = request.form.keys()
         sData = {}
-        for key in paramKey :
-            if key == 'url' :
+        for key in paramKey:
+            if key == 'url':
                 sData["url"] = request.form[key]
             elif request.form[key] != "":
-                if attrValidator(request.form[key]):
-                    return f'{request.form[key]} do not contains id or class attribute.'
-                else :
-                    soup = BeautifulSoup(request.form[key], 'html.parser')
-                    outerTag = soup.find()
-                    sData[key] = {
-                        "type" : outerTag,
-                        "atr" : {
-                            "id": outerTag.get('id'),
-                            "class": outerTag.get('class')[0]
-                        }
+                soup = BeautifulSoup(request.form[key], 'html.parser')
+                outerTag = soup.find()
+                sData[key] = {
+                    "type": outerTag.name,
+                    "atr": {
+                        "id": outerTag.get('id'),
+                        "class": outerTag.get('class')[0] if outerTag.get('class') is not None else ""
                     }
+                }
+                # if not attrValidator(request.form[key]):
+                #     return f'{request.form[key]} do not contains id or class attribute.'
+                # else:
         testScrap = testingtool.TestMyScraping(sData)
-
+        return f'{testScrap.getReturnValue()}'
     return ""
+
+
 # {
 #     url : {
 #         "parent" : {
@@ -68,10 +76,7 @@ def testing():
 # }
 
 
-
-
 # Edit above
-
 
 
 @app.route('/blog/<parameter_name>')
@@ -208,9 +213,8 @@ def addSite():
         }
         addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
         return redirect('/dashboard')
-    else :
+    else:
         return render_template('manage.html', regData=msg)
-
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])

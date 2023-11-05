@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 
 class TestMyScraping:
+    returnValue = ""
 
     def __init__(self, data):
         output = {}
@@ -17,9 +18,12 @@ class TestMyScraping:
                 if key != 'parent' and key != 'url':
                     m_values[key] = eachItem.find(data[key]["type"]).text
             output[f'item{item}'] = m_values
-            item = item+1
-        print(json.dumps(output,indent=4))
+            item = item + 1
+        # print(json.dumps(output,indent=4))
+        self.returnValue = str(output)
 
+    def getReturnValue(self):
+        return self.returnValue
 #
 # data = {
 #     "url" : "https://economictimes.indiatimes.com/news/india",
