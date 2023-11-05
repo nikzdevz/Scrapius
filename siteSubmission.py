@@ -8,6 +8,7 @@ class addSiteSubmission:
 
     def __init__(self, username, mUrl, mData):
         mSchemaDict = {mUrl: {}}
+        # Generating Schema
         for key in mData.keys():
             soup = BeautifulSoup(mData[key], 'html.parser')
             outerTag = soup.find()
@@ -26,7 +27,7 @@ class addSiteSubmission:
                         "class": ""
                     }
                 }
-
+        # Appending Schema to schema.json of user
         file_name = 'userbase/' + username
         if not os.path.exists(file_name):
             os.makedirs(file_name)
@@ -41,6 +42,7 @@ class addSiteSubmission:
         print(data)
         with open(file_name, "w") as file:
             json.dump(data, file)
+        # Appending Schema to queue.json
         with open('queue.json', 'r') as file:
             dataqueue = json.load(file)
         mSchemaDict[mUrl]['url'] = mUrl

@@ -22,6 +22,7 @@
 # #
 # # print_active()
 import json
+import os
 import threading
 import time
 
@@ -31,6 +32,8 @@ from bs4 import BeautifulSoup
 import json
 import threading
 import mysql.connector
+
+import main
 
 
 class scrap_handler:
@@ -51,7 +54,7 @@ class scrap_handler:
             db_cursor = db_connection.cursor(buffered=True)
             r = requests.get(data['url'])
             soup = BeautifulSoup(r.content, 'html.parser')
-            m_attrs =  {**data}; # ** is used to duplicate complete variable
+            m_attrs = {**data};  # ** is used to duplicate complete variable
             url = data['url']
             username = data['username']
             m_attrs.pop("username")
@@ -72,21 +75,49 @@ class scrap_handler:
             time.sleep(30)
 
 
+def restart_scraping_services():
+    userDir = os.listdir('userbase')
+    with open('queue.json', 'r') as file:
+        dataqueue = json.load(file)
+    for user in userDir:
+        with open('userbase/'+ user + '/schema.json', 'r') as file:
+            userSchema = json.load(file)
+        for key in userSchema.keys() :
+            userSchema[key]['url'] = key
+            userSchema[key]['username'] = user
+            dataqueue.append(userSchema[key])
+    with open('queue.json', 'w') as file:
+        json.dump(dataqueue, file, indent=4)
+    with open('configdata.json', 'r') as file:
+        configdata = json.load(file)
+    configdata["isRestarting"] = "false"
+    with open('configdata.json', 'w') as file:
+        json.dump(configdata, file, indent=4)
+    print("Restarted All Services")
+
+
 # Create a thread that runs the function repeatedly
-def call_my_function():
+def queue_json_handler():
     while True:
-        with open('queue.json', 'r') as file:
-            dataqueue = json.load(file)
-        for dataItem in dataqueue:
-            scrap_handler(dataItem)
-        # handleQueueRequest()
-        dataqueue.clear()
-        with open('queue.json', 'w') as file:
-            json.dump(dataqueue, file, indent=4)
+        with open('configdata.json', 'r') as file:
+            configdata = json.load(file)
+        if configdata["isRestarting"] != "true":
+            with open('queue.json', 'r') as file:
+                dataqueue = json.load(file)
+            for dataItem in dataqueue:
+                scrap_handler(dataItem)
+            # handleQueueRequest()
+            dataqueue.clear()
+            with open('queue.json', 'w') as file:
+                json.dump(dataqueue, file, indent=4)
         time.sleep(2)
 
 
 # Create and start the thread
-thread = threading.Thread(target=call_my_function)
+thread = threading.Thread(target=queue_json_handler)
 thread.daemon = True  # Set the thread as a daemon so it won't block the program from exiting
 thread.start()
+
+thread1 = threading.Thread(target=restart_scraping_services)
+thread1.daemon = True
+thread1.start()
