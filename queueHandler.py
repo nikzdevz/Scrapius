@@ -62,7 +62,12 @@ class scrap_handler:
             for eachItem in reversed(soup.findAll(m_attrs["parent"]["type"], m_attrs["parent"]["atr"])):
                 m_values = {};
                 for keys in m_attrs:
-                    if keys != 'parent':
+                    if keys == 'link':
+                        print('link')
+                    elif keys == 'img' :
+                        print('img')
+
+                    elif keys != 'parent':
                         m_values[keys] = eachItem.find(m_attrs[keys]["type"]).text
                 query = "Select * from scrapeddata where Site=(%s) AND user='aa' AND title=(%s) Limit 1"
                 db_cursor.execute(query, (url, m_values['heading']))
