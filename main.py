@@ -198,14 +198,15 @@ def addSite():
     mUrl = request.form['url']
     msg = ""
     paramKey = request.form.keys()
+    print(str(paramKey))
     if 'parent' in paramKey and not attrValidator(request.form['parent']):
         msg = "Parent do not contains id or class attribute."
-    elif 'heading' in paramKey and not attrValidator(request.form['heading']):
-        msg = "Heading do not contains id or class attribute."
-    elif 'link' in paramKey and not attrValidator(request.form['link']):
-        msg = "Link do not contains id or class attribute."
-    elif 'img' in paramKey and not attrValidator(request.form['img']):
-        msg = "Image do not contains id or class attribute."
+    # elif 'heading' in paramKey and not attrValidator(request.form['heading']):
+    #     msg = "Heading do not contains id or class attribute."
+    # elif 'link' in paramKey and not attrValidator(request.form['link']):
+    #     msg = "Link do not contains id or class attribute."
+    # elif 'img' in paramKey and not attrValidator(request.form['img']):
+    #     msg = "Image do not contains id or class attribute."
     if msg == "":
         sData = {
             "parent": request.form['parent'],
@@ -215,6 +216,7 @@ def addSite():
         addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
         return redirect('/dashboard')
     else:
+        print(msg)
         return render_template('manage.html', regData=msg)
 
 

@@ -25,6 +25,7 @@ import json
 import os
 import threading
 import time
+from urllib.parse import urlparse
 
 import mysql
 import requests
@@ -63,19 +64,25 @@ class scrap_handler:
                 m_values = {};
                 for keys in m_attrs:
                     if keys == 'link':
-                        print('link')
-                    elif keys == 'img' :
-                        print('img')
-
+                        mUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('href') if eachItem.find(
+                            m_attrs[keys]["type"], m_attrs[keys]["atr"]) else ""
+                        if mUrl != "" and not mUrl.startswith("http"):
+                            parsed_url = urlparse(url)
+                            mUrl = str(parsed_url.scheme + "://" + parsed_url.netloc) + mUrl
+                        m_values[keys] = mUrl
+                    elif keys == 'img':
+                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src')
                     elif keys != 'parent':
-                        m_values[keys] = eachItem.find(m_attrs[keys]["type"]).text
-                query = "Select * from scrapeddata where Site=(%s) AND user='aa' AND title=(%s) Limit 1"
-                db_cursor.execute(query, (url, m_values['heading']))
+                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text if (
+                            eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])) else ""
+                query = "Select * from scrapeddata where Site=(%s) AND user=(%s) AND title=(%s) Limit 1"
+                db_cursor.execute(query, (url, data['username'], m_values['heading']))
                 myresult = db_cursor.fetchall()
                 print(m_values['heading'])
                 if len(myresult) == 0:
-                    query = "Insert into scrapeddata (Site, user, data, title) values (%s, 'aa', %s, %s)"
-                    db_cursor.execute(query, (url, str(m_values), m_values['heading']))
+                    query = "Insert into scrapeddata (Site, user, data, title) values (%s, %s, %s, %s)"
+                    db_cursor.execute(query,
+                                      (url, data['username'], json.dumps(m_values, indent=4), m_values['heading']))
                     db_connection.commit()
             time.sleep(30)
 
@@ -85,9 +92,9 @@ def restart_scraping_services():
     with open('queue.json', 'r') as file:
         dataqueue = json.load(file)
     for user in userDir:
-        with open('userbase/'+ user + '/schema.json', 'r') as file:
+        with open('userbase/' + user + '/schema.json', 'r') as file:
             userSchema = json.load(file)
-        for key in userSchema.keys() :
+        for key in userSchema.keys():
             userSchema[key]['url'] = key
             userSchema[key]['username'] = user
             dataqueue.append(userSchema[key])

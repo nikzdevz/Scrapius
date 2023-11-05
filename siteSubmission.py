@@ -4,6 +4,13 @@ import os
 from bs4 import BeautifulSoup
 
 
+def getAttrsDict(attributes):
+    mAttrDict = {}
+    for attribute, value in attributes.items():
+        mAttrDict[attribute] = value
+    return mAttrDict
+
+
 class addSiteSubmission:
 
     def __init__(self, username, mUrl, mData):
@@ -12,21 +19,13 @@ class addSiteSubmission:
         for key in mData.keys():
             soup = BeautifulSoup(mData[key], 'html.parser')
             outerTag = soup.find()
-            if outerTag.has_attr('class'):
-                mSchemaDict[mUrl][key] = {
-                    "type": outerTag.name,
-                    "atr": {
-                        "id": outerTag.get('id'),
-                        "class": outerTag.get('class')[0]
-                    }
+            mSchemaDict[mUrl][key] = {
+                "type": outerTag.name,
+                "atr": {
+                    "id": outerTag.get('id') if outerTag.get('id') else "",
+                    "class": outerTag.get('class')[0] if outerTag.get('class') else ""
                 }
-            else:
-                mSchemaDict[mUrl][key] = {
-                    "type": outerTag.name,
-                    "atr": {
-                        "class": ""
-                    }
-                }
+            }
         # Appending Schema to schema.json of user
         file_name = 'userbase/' + username
         if not os.path.exists(file_name):
