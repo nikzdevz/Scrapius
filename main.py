@@ -90,13 +90,20 @@ def blog(parameter_name):
     )
     param = parameter_name
     db_cursor = db_connection.cursor(buffered=True)
-    query = "select Site,data from scrapeddata where user=(%s)"
-    db_cursor.execute(query, (param,))
-    myresult = db_cursor.fetchall()
-    if len(myresult) == 0:
-        return f'No Data Found';
+    usernamequery = "select email from userbase where username=(%s) Limit 1"
+    db_cursor.execute(usernamequery, (param,))
+    umyresult = db_cursor.fetchall()
+    if len(umyresult) == 0:
+        return f'No User Found';
     else:
-        return f'My Result => {myresult}'
+        print(umyresult[0])
+        query = "select Site,data from scrapeddata where user=(%s)"
+        db_cursor.execute(query, umyresult[0])
+        myresult = db_cursor.fetchall()
+        if len(myresult) == 0:
+            return f'No Data Found';
+        else:
+            return f'{myresult}'
 
 
 @app.route('/userRegister', methods=['GET', 'POST'])
