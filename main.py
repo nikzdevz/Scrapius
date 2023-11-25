@@ -14,9 +14,9 @@ from flask_session import Session
 app = Flask(__name__)
 
 
-@app.route('/testTool')
-def testTool():
-    return render_template('test.html')
+@app.route('/blog/<parameter_name>')
+def testTool(parameter_name):
+    return render_template('blog.html')
 
 
 @app.route('/fetchData')
@@ -137,8 +137,8 @@ def testing():
 # Edit above
 
 
-@app.route('/blog/<parameter_name>')
-def blog(parameter_name):
+@app.route('/fetchblog/<parameter_name>')
+def fetchblog(parameter_name):
     db_connection = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -154,13 +154,16 @@ def blog(parameter_name):
         return f'No User Found'
     else:
         print(umyresult[0])
-        query = "select Site,data from scrapeddata where user=(%s)"
+        query = "select data from scrapeddata where user=(%s) ORDER BY createdTime DESC"
         db_cursor.execute(query, umyresult[0])
         myresult = db_cursor.fetchall()
         if len(myresult) == 0:
             return f'No Data Found';
         else:
-            return f'{myresult}'
+            mblogdata = []
+            for row in myresult:
+                mblogdata.append(row[0])
+            return f'{str(json.dumps(mblogdata))}'
 
 
 @app.route('/userRegister', methods=['GET', 'POST'])

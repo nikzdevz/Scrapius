@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Website</title>
+{#  <link rel="stylesheet" href="styles.css"> <!-- Linking the CSS file -->#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+</head>
+<body>
+  <div class="header">
+    <h1>nikzdevz's blog</h1>
+  </div>
+  <div class="container" id="cardsContainer">
+    <!-- Cards will be dynamically added here -->
+  </div>
+  <div class="footer">
+    <p>Created with <span class="heart-icon">❤</span> by Scrapius</p>
+  </div>
+  <!-- Other sections/content of your website go here -->
+
+<script src="{{ url_for('static', filename='js/blog.js') }}"></script>
+</body>
+</html>

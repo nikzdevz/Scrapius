@@ -74,10 +74,14 @@ class scrap_handler:
                             mUrl = str(parsed_url.scheme + "://" + parsed_url.netloc) + mUrl
                         m_values[keys] = mUrl
                     elif keys == 'img':
-                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src')
+                        chkUrl = str(eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src'))
+                        if not chkUrl.startswith('http') :
+                            chkUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('data-src')
+                        m_values[keys] = chkUrl
                     elif keys != 'parent':
-                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text if (
+                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text.strip() if (
                             eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])) else ""
+                # print("My Value Heavding => " + m_values['heading'])
                 if m_values['heading'] != "" :
                     query = "Select * from scrapeddata where Site=(%s) AND user=(%s) AND title=(%s) Limit 1"
                     db_cursor.execute(query, (url, data['username'], m_values['heading']))
