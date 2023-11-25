@@ -1,5 +1,5 @@
 import json
-from types import NoneType
+import os
 
 import mysql
 import mysql.connector
@@ -13,11 +13,68 @@ from flask_session import Session
 
 app = Flask(__name__)
 
-onceStart = True
 
 @app.route('/testTool')
 def testTool():
-    return render_template('testTool.html')
+    return render_template('test.html')
+
+
+@app.route('/fetchData')
+def fetchData():
+    db_connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="",
+        database="scrapiusdb"
+    )
+    db_cursor = db_connection.cursor(buffered=True)
+    query = "select Site,data from scrapeddata where user=(%s)"
+    db_cursor.execute(query, (session['loggedInEmail'],))
+    myresult = db_cursor.fetchall()
+    username = str(session['loggedInEmail'])
+    file_name = 'userbase/' + username
+    if not os.path.exists(file_name):
+        os.makedirs(file_name)
+    file_name = file_name + "/schema.json"
+    if not os.path.exists(file_name):
+        # Create the file if it doesn't exist
+        with open(file_name, 'w') as file:
+            file.write("{}")
+    with open(file_name, 'r') as file:
+        loadedData = json.load(file)
+    cr_filename = 'userbase/' + username + "/created.json"
+    if not os.path.exists(cr_filename):
+        # Create the file if it doesn't exist
+        with open(cr_filename, 'w') as file:
+            file.write("{}")
+    with open(cr_filename, 'r') as file:
+        cr_loadedData = json.load(file)
+    mTableData = []
+    for key in loadedData.keys():
+        mstr = ""
+        for mkey in loadedData[key].keys():
+            if mkey != "parent" :
+                if mstr == "":
+                    mstr = mkey.capitalize()
+                else:
+                    mstr = mstr + ", " + mkey.capitalize()
+        innerData = {
+            "site" : key,
+            "schema" : mstr,
+            "siteTotalScraped" : sum(1 for item in myresult if item[0] == key),
+            "created" : cr_loadedData[key]
+        }
+        mTableData.append(innerData)
+
+    mData = {
+        "totalScraped": len(myresult),
+        "lastScraped": "2m",
+        "totalSites": len(loadedData.keys()),
+        "totalView": "2.5K",
+        "totalSubs": "50",
+        "data": str(json.dumps(mTableData))
+    }
+    return f'{str(json.dumps(mData,indent=4))}'
 
 
 # Edit Below
@@ -94,7 +151,7 @@ def blog(parameter_name):
     db_cursor.execute(usernamequery, (param,))
     umyresult = db_cursor.fetchall()
     if len(umyresult) == 0:
-        return f'No User Found';
+        return f'No User Found'
     else:
         print(umyresult[0])
         query = "select Site,data from scrapeddata where user=(%s)"
@@ -153,18 +210,21 @@ def userLogin():
             database="scrapiusdb"
         )
         db_cursor = db_connection.cursor(buffered=True)
-        query = "select email,password from userbase"
+        query = "select email,password,username from userbase"
         db_cursor.execute(query)
         myresult = db_cursor.fetchall()
         isVerified = 0
+        mUsername = "";
         for item in myresult:
             if item[0] == email:
                 if item[1] == password:
                     isVerified = 2
+                    mUsername = item[2]
                 else:
                     isVerified = 1
         if isVerified == 2:
             session['loggedInEmail'] = email
+            session['loggedInUserName'] = mUsername
             return redirect('/dashboard')
         elif isVerified == 1:
             # param = [str(isVerified),str(isVerified),str(isVerified)]
@@ -183,7 +243,7 @@ def manageSite():
     #         existing_data = json.load(file)
     # except FileNotFoundError:
     #     pass
-    return render_template('manage.html')
+    return render_template('newmanage.html')
 
 
 def attrValidator(element1):
@@ -205,7 +265,7 @@ def addSite():
     mUrl = request.form['url']
     msg = ""
     paramKey = request.form.keys()
-    print(str(paramKey))
+    # print(str(paramKey))
     if 'parent' in paramKey and not attrValidator(request.form['parent']):
         msg = "Parent do not contains id or class attribute."
     # elif 'heading' in paramKey and not attrValidator(request.form['heading']):
@@ -215,11 +275,10 @@ def addSite():
     # elif 'img' in paramKey and not attrValidator(request.form['img']):
     #     msg = "Image do not contains id or class attribute."
     if msg == "":
-        sData = {
-            "parent": request.form['parent'],
-            "heading": request.form['heading'],
-            "link": request.form['link']
-        }
+        sData = {}
+        for key in paramKey :
+            if request.form[key].strip() != "" and key != 'url':
+                sData[key] = request.form[key];
         addSiteObj = siteSubmission.addSiteSubmission(userEmail, mUrl, sData)
         return redirect('/dashboard')
     else:
@@ -229,7 +288,11 @@ def addSite():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('Dashboard.html')
+    data = {
+        "email": session['loggedInEmail'],
+        "username": session['loggedInUserName']
+    }
+    return render_template('newdash.html', my_data=data)
 
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -273,4 +336,5 @@ if __name__ == "__main__":
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
     Session(app)
+    queueHandler.queuehandlerStarted()
     app.run()

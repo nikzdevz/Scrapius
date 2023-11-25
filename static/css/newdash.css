@@ -1,0 +1,458 @@
+.main--content {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 98%;
+	margin-left: 10%;
+	margin-right: 1%;
+}
+
+.main--content.active {
+	width: 100%;
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	margin-top: 30px;
+}
+
+.section--title {
+	font-weight: 600;
+	font-size: 32px;
+	margin-top: 2px;
+}
+
+.dropdown {
+	outline: none;
+	border: none;
+	background-color: white;
+	border-radius: 5px;
+	width: 150px;
+	padding: 5px;
+}
+
+.cards {
+	display: flex;
+	gap: 20px;
+}
+
+.card {
+	flex: 1;
+	padding: 20px;
+	border-radius: 20px;
+	min-width: 200px;
+	height: auto;
+	transition: .3s;
+}
+
+.card:hover {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card--data {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.card h1 {
+	font-size: 30px;
+	margin-top: 10px;
+}
+
+.ri-links-line {
+	font-size: 50px;
+}
+
+.ri-bug-2-line {
+	font-size: 50px;
+}
+
+.ri-eye-line {
+	font-size: 50px;
+}
+
+.ri-user-line {
+	font-size: 50px;
+}
+
+.card--stats {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 5px;
+}
+
+.card--stats span {
+	display: flex;
+	align-items: center;
+}
+
+.card--icon {
+	margin-right: 5px;
+}
+
+.stat--icon {
+	color: #5f5ce0;
+}
+
+.up--arrow {
+	color: #70d7a5;
+}
+
+.down--arrow {
+	color: #e86786;
+}
+
+.card-1 {
+	background-color: rgba(80, 115, 251, .1);
+}
+
+.card-1 .card--title {
+	color: rgba(80, 115, 251, 1);
+}
+
+.card-1 .ri-links-line {
+	color: rgba(80, 115, 251, .4);
+}
+
+.card-2 {
+	background-color: rgba(241, 210, 67, .1);
+}
+
+.card-2 .card--title {
+	color: rgba(241, 210, 67, 1);
+}
+
+.card-2 .ri-bug-2-line {
+	color: rgba(241, 210, 67, .4);
+}
+
+.card-3 {
+	background-color: rgba(112, 215, 165, .1);
+}
+
+.card-3 .card--title {
+	color: rgba(112, 215, 165, 1);
+}
+
+.card-3 .ri-eye-line {
+	color: rgba(112, 215, 165, .4);
+}
+
+.card-4 {
+	background-color: rgba(227, 106, 200, .1);
+}
+
+.card-4 .card--title {
+	color: rgba(227, 106, 200, 1);
+}
+
+.card-4 .ri-user-line {
+	color: rgba(227, 106, 200, .4);
+}
+
+/*.add {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    outline: none;
+    border: none;
+    background-color: #5073fb;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+.add:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.add i {
+    margin-right: 10px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    color: #000;
+}
+.details {
+    margin-bottom: 20px;
+}
+.table {
+    height: 200px;
+    overflow-y: scroll;
+}
+table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    background-color: rgb(246, 243, 241);
+}
+tr {
+    border-bottom: 1px solid #151414;
+}
+td,
+th {
+    padding-block: 10px;
+}
+.edit {
+    color: #70d7a5;
+    margin-right: 10px;
+}
+.delete {
+    color: #e86786;
+}
+.pending {
+    color: #f1d243;
+}
+.confirmed {
+    color: #70d7a5;
+}
+.rejected {
+    color: #e86786;
+}*/
+
+
+#loading-sites {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	color: rgba(80, 115, 251, 1);
+}
+
+.card-1 h1 {
+	color: rgba(80, 115, 251, 1);
+}
+
+#loading-scrapped {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	color: rgba(241, 210, 67, 1);
+}
+
+.card-2 h1 {
+	color: rgba(241, 210, 67, 1);
+}
+
+#loading-views {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	color: rgba(112, 215, 165, 1);
+}
+
+.card-3 h1 {
+	color: rgba(112, 215, 165, 1);
+}
+
+#loading-followers {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite;
+	color: rgba(227, 106, 200, 1);
+}
+
+.card-4 h1 {
+	color: rgba(227, 106, 200, 1);
+}
+
+@keyframes shimmer {
+	to {
+		background-position: -200% 0;
+	}
+}
+
+.manageSection {
+	background-color: #f9f9f9;
+	border-radius: 15px;
+	padding: 20px;
+	margin: 20px 40px;
+}
+
+.manage-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.manage-header h2 {
+	margin: 0;
+	font-size: 24px;
+}
+
+.add-site-btn {
+	padding: 10px 20px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	background-color: #4CAF50;
+	/* Change color as needed */
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.add-site-btn:hover {
+	background-color: #45a049;
+	/* Change color as needed */
+}
+
+/* ... Your existing CSS ... */
+
+.manage-bottom {
+	margin-top: 20px;
+}
+
+.site-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 15px;
+}
+
+.site-table tbody tr {
+	margin-top: 150px;
+}
+
+.site-table th,
+.site-table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+    text-align: center;
+    overflow: hidden;
+}
+
+.site-table th {
+	background-color: #f5f5f5;
+	font-weight: bold;
+    text-align: center;
+}
+
+.edit-icon,
+.delete-icon {
+	margin-right: 10px;
+	cursor: pointer;
+	transition: color 0.3s ease;
+	/* Smooth transition on color change */
+}
+
+/* Hover effect */
+.edit-icon:hover,
+.delete-icon:hover {
+	color: blue;
+	/* Change color on hover */
+}
+
+.placeholder {
+	display: inline-block;
+	height: 20px;
+	/* Adjust height */
+	width: 120px;
+	/* Adjust width */
+	border-radius: 3px;
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(90deg, rgba(240, 240, 240, 0.7) 0%, rgba(255, 255, 255, .9) 50%, rgba(240, 240, 240, 0.7) 100%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s infinite linear;
+	/* Adjust animation duration and timing function */
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 100% 0;
+	}
+
+	100% {
+		background-position: -100% 0;
+	}
+}
+
+.overview {
+	background-color: #f9f9f9;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	margin: 20px 40px;
+	padding: 20px;
+	border-radius: 15px;
+	border-color: black;
+	overflow: hidden;
+}
+
+.header {
+	height: 60px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid #f1f1f1;
+}
+
+.header img {
+	margin-right: 40px;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	padding-left: 40px;
+}
+
+.logo span {
+	color: #5073fb;
+}
+
+
+img {
+	height: 50px;
+	margin-top: 8px;
+	border-radius: 50%;
+}
+
+.user-profile {
+	position: relative;
+	display: flex;
+	align-items: center;
+	float: right;
+}
+
+.dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1;
+}
+
+.dropdown ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown li {
+	padding: 10px;
+}
+
+.dropdown a {
+	text-decoration: none;
+	color: #333;
+	display: block;
+}
+
+.dropdown a:hover {
+	background-color: #f0f0f0;
+}

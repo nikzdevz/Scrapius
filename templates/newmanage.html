@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newdash.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newmanage.css') }}">
+{#    <link rel="stylesheet" href="newdash.css">#}
+{#    <link rel="stylesheet" href="newmanage.css">#}
+    <!--
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <title>Dashboard</title>
+</head>
+<body>
+    
+    <div class="main--content">
+        <div class="header">
+            <div class="logo">
+                <h1>Scra<span>Pius</span></h1>
+            </div>
+            <div class="user-profile">
+                <img src="{{ url_for('static', filename='img/profile-icon.png') }}" alt="Your Image" id="userImage">
+                <div class="dropdown" id="dropdown">
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>  
+        </div>
+        <div class="containers">
+            <div class="container">
+                <h3>Manage Site</h3><br>
+                <form action="/addSite" method="post" id="manage">
+                    <div class="details"></div>
+                    
+                        <div class="tag1">
+                            <div class="url">
+                                <input type="url" name="url" id="url" placeholder="Enter url" required>
+                            </div>
+                            
+                        </div><br>
+                        <div class="tag1" >
+                            <input type="text" placeholder="Enter Parent tag schema" id="tag1" name="parent">
+                        </div><br>
+                    
+                        <div class="tag1">
+                            <input type="text" placeholder="Enter Heading tag schema" id="tag2" name="heading">
+                        </div><br>
+                    
+                        <div class="tag1">
+                            <input type="text" placeholder="Enter Description tag schema" id="tag3" name="desc">
+                        </div><br>
+                        <div class="tag1">
+                            <input type="text" placeholder="Enter Image tag schema" id="tag3" name="img">
+                        </div><br>
+                        <div class="tag1">
+                            <input type="text" placeholder="Enter Link tag schema" id="tag3" name="link">
+                        </div><br>
+                        <div class="button">
+                            <button class="btn">Add Site</button> 
+                            <button class="btn">TEST</button> 
+                        </div>
+                        
+                    </form>
+                </div>
+            <div class="container2">
+                    <h3>Resposive Page</h3><br>
+                    <div> </div>
+                </div>
+        </div>
+    </div>
+            
+{#          <script src="managesite.js"></script>#}
+{#          <script src="newmanage.js"></script>#}
+        <script src="{{ url_for('static', filename='js/managesite.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/newmanage.js') }}"></script>
+
+    </body>
+</html>
+        

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Scrapius</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   </head>
+   <body>
+      <header>
+         <div class="container">
+            <h1>Scrapius</h1>
+            <img src="{{ url_for('static', filename='img/logout.png') }}" alt="Logout">
+         </div>
+      </header>
+      <div class="content">
+         <div class="inner-container">
+            <div class="acc_overview">
+               <h2>Overview</h2>
+               <div class="info-item">
+                  <img src="{{ url_for('static', filename='img/user.png') }}" alt="Username Icon">
+                  <span>Username: <strong>{{ my_data["username"] }}</strong></span>
+               </div>
+               <div class="info-item">
+                  <img src="{{ url_for('static', filename='img/mail.png') }}" alt="Email Icon">
+                  <span>Email: <strong>{{ my_data["email"] }}</strong></span>
+               </div>
+               <div class="grid-container">
+                  <div class="grid-item total-site">Total Site <span class="placeholder"></span></div>
+                  <div class="grid-item total-scraped">Total Scraped <span class="placeholder"></span></div>
+                  <div class="grid-item last-scraped">Last Scraped(in mins) <span class="placeholder"></span></div>
+                  <div class="grid-item total-view">Total View <span class="placeholder"></span></div>
+                  <div class="grid-item total-subscribe">Total Subscribe <span class="placeholder"></span></div>
+               </div>
+            </div>
+            {#
+            <div class="acc_information">
+               #}
+               {#
+               <h2>Account Information</h2>
+               #}
+               {##}
+               {#               <button class="change-password-btn">Change Password</button>#}
+               {#
+            </div>
+            #}
+         </div>
+      </div>
+      <div class="manageSection">
+         <div class="manage-header">
+            <h2>Manage Sites</h2>
+            <button class="add-site-btn">Add Site</button>
+         </div>
+         <div class="manage-bottom">
+            <table class="site-table">
+               <thead>
+                  <tr>
+                     <th>Site</th>
+                     <th>Host</th>
+                     <th>Schema</th>
+                     <th>Total Scraped</th>
+                     <th>Created</th>
+                     <th>Last Modified</th>
+                     <th>Action</th>
+                     <!-- New column -->
+                  </tr>
+               </thead>
+               <tbody>
+                  <!-- Sample row; Add more rows as needed -->
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <tr>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                     <td><span class="placeholder">&nbsp;</span></td>
+                  </tr>
+                  <!-- Add more rows with icons as needed -->
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <!-- Rest of your website content -->
+       <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Fetch data when the page is loaded
+          fetch('/fetchData')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              // Process the fetched data
+              console.log('Fetched data:', data);
+              const totalsite = document.querySelector('.grid-item.total-site .placeholder');
+              const totalscraped = document.querySelector('.grid-item.total-scraped .placeholder');
+              const totalview = document.querySelector('.grid-item.total-view .placeholder');
+              const totalsubscribe = document.querySelector('.grid-item.total-subscribe .placeholder');
+              const lastscraped = document.querySelector('.grid-item.last-scraped .placeholder');
+                if (totalscraped) {
+                  // Replace the content of the span with new text
+                   totalscraped.classList.remove('placeholder');
+                   totalscraped.textContent = data['totalScraped'];
+                }
+              if (totalsite) {
+                  // Replace the content of the span with new text
+                   totalsite.classList.remove('placeholder');
+                   totalsite.textContent = data['totalSites'];
+                }
+              if (totalview) {
+                  // Replace the content of the span with new text
+                   totalview.classList.remove('placeholder');
+                   totalview.textContent = data['totalView'];
+                }
+              if (totalsubscribe) {
+                  // Replace the content of the span with new text
+                   totalsubscribe.classList.remove('placeholder');
+                   totalsubscribe.textContent = data['totalSubs'];
+                }
+              if (lastscraped) {
+                  // Replace the content of the span with new text
+                   lastscraped.classList.remove('placeholder');
+                   lastscraped.textContent = data['lastScraped'];
+                }
+
+              // Perform further actions with the data
+            })
+            .catch(error => {
+              // Handle any errors during the fetch
+              console.error('Fetch error:', error);
+            });
+        });
+      </script>
+   </body>
+</html>

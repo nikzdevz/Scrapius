@@ -6,7 +6,7 @@ menu.onclick = function() {
     mainContent.classList.toggle('active')
 }
 
-let body = document.querySelector(".body")
+/*let body = document.querySelector(".body")
 let sun = document.querySelector(".sun")
 let moon = document.querySelector(".moon")
 
@@ -16,4 +16,4 @@ moon.onclick = function() {
 
 sun.onclick = function() {
     body.classList.remove("dark--mode")
-}
+}*/

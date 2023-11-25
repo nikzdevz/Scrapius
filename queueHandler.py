@@ -21,9 +21,7 @@
 #
 # #
 # # print_active()
-import json
 import os
-import threading
 import time
 from urllib.parse import urlparse
 
@@ -34,11 +32,10 @@ import json
 import threading
 import mysql.connector
 
-import main
-
 
 class scrap_handler:
     def __init__(self, data):
+        # print("Scrap Handler Data Item => " + str(data))
         mThread = threading.Thread(target=self.doScraping, args=([data]))
         mThread.daemon = True  # Set the thread as a daemon so it won't block the program from exiting
         mThread.start()
@@ -53,13 +50,19 @@ class scrap_handler:
                 database="scrapiusdb"
             )
             db_cursor = db_connection.cursor(buffered=True)
-            r = requests.get(data['url'])
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+                # Add more headers if needed
+            }
+            r = requests.get(data['url'],headers=headers)
             soup = BeautifulSoup(r.content, 'html.parser')
             m_attrs = {**data};  # ** is used to duplicate complete variable
             url = data['url']
             username = data['username']
             m_attrs.pop("username")
             m_attrs.pop("url")
+            print(url + "  =>   " + str(len(soup.findAll(m_attrs["parent"]["type"], m_attrs["parent"]["atr"]))))
             for eachItem in reversed(soup.findAll(m_attrs["parent"]["type"], m_attrs["parent"]["atr"])):
                 m_values = {};
                 for keys in m_attrs:
@@ -75,15 +78,19 @@ class scrap_handler:
                     elif keys != 'parent':
                         m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text if (
                             eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])) else ""
-                query = "Select * from scrapeddata where Site=(%s) AND user=(%s) AND title=(%s) Limit 1"
-                db_cursor.execute(query, (url, data['username'], m_values['heading']))
-                myresult = db_cursor.fetchall()
-                print(m_values['heading'])
-                if len(myresult) == 0:
-                    query = "Insert into scrapeddata (Site, user, data, title) values (%s, %s, %s, %s)"
-                    db_cursor.execute(query,
-                                      (url, data['username'], json.dumps(m_values, indent=4), m_values['heading']))
-                    db_connection.commit()
+                if m_values['heading'] != "" :
+                    query = "Select * from scrapeddata where Site=(%s) AND user=(%s) AND title=(%s) Limit 1"
+                    db_cursor.execute(query, (url, data['username'], m_values['heading']))
+                    myresult = db_cursor.fetchall()
+                    if len(myresult) == 0:
+                        try:
+                            query = "Insert into scrapeddata (Site, user, data, title) values (%s, %s, %s, %s)"
+                            db_cursor.execute(query,(url, data['username'], json.dumps(m_values, indent=4), m_values['heading']))
+                            db_connection.commit()
+                        except Exception as e:
+                            print(f"An error occurred: {e}")
+                            print("username => " +data['username'])
+                            print("heading => " + m_values['heading'])
             time.sleep(30)
 
 
@@ -107,6 +114,9 @@ def restart_scraping_services():
         json.dump(configdata, file, indent=4)
     print("Restarted All Services")
 
+
+def queuehandlerStarted():
+    print("Queue Handler Started")
 
 # Create a thread that runs the function repeatedly
 def queue_json_handler():

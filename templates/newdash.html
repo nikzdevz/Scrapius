@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{#    <link rel="stylesheet" href="newdash.css">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newdash.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="main--content">
+        <div class="header">
+            <div class="logo">
+                <h1>Scra<span>Pius</span></h1>
+            </div>
+            <div class="user-profile">
+                <img src="{{ url_for('static', filename='img/profile-icon.png') }}" alt="Your Image" id="userImage">
+                <div class="dropdown" id="dropdown">
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>  
+        </div>
+        <div class="overview">
+            <div class="title">
+                <h2 class="section--title">Overview</h2>
+                <select name="date" id="date" class="dropdown">
+                    <option value="today">Today</option>
+                    <option value="lastweek">Last Week</option>
+                    <option value="lastmonth">Last Month</option>
+                    <option value="lastyear">Last Year</option>
+                    <option value="alltime">All Time</option>
+                </select>
+            </div>
+            <div class="cards">
+                <div class="card card-1">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h3 class="card--title">Total Sites</h3>
+                            <div id="loading-sites" class="shimmer-container">
+                                <h1>Loading...</h1>
+                            </div>
+                    
+                            <div id="data-container-sites" class="data-container">
+                                <h1></h1>
+                            </div>
+                        </div>
+                        <i class="ri-links-line"></i>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>65%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>10</span>
+                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h3 class="card--title">Total Scrapped</h3>
+                            <div id="loading-scrapped" class="shimmer-container">
+                                <h1>Loading...</h1>
+                            </div>
+                    
+                            <div id="data-container-scrapped" class="data-container">
+                                <h1></h1>
+                            </div>
+                        </div>
+                        <i class="ri-bug-2-line"></i>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>82%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>230</span>
+                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>45</span>
+                    </div>
+                </div>
+                <div class="card card-3">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h3 class="card--title">Views</h3>
+                            <div id="loading-views" class="shimmer-container">
+                                <h1>Loading...</h1>
+                            </div>
+                    
+                            <div id="data-container-views" class="data-container">
+                                <h1></h1>
+                            </div>
+                        </div>
+                        <i class="ri-eye-line"></i>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>27%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>31</span>
+                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>23</span>
+                    </div>
+                </div>
+                <div class="card card-4">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h3 class="card--title">Followers</h3>
+                            <div id="loading-followers" class="shimmer-container">
+                                <h1>Loading...</h1>
+                            </div>
+                    
+                            <div id="data-container-followers" class="data-container">
+                                <h1></h1>
+                            </div>
+                        </div>
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>8%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>11</span>
+                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="manageSection">
+            <div class="manage-header">
+               <h2>Manage Sites</h2>
+               <button class="add-site-btn" onclick="openManageSite()">Add Site</button>
+            </div>
+            <div class="manage-bottom">
+               <table class="site-table">
+                  <thead>
+                     <tr>
+                        <th>Site</th>
+                        <th>Schema</th>
+                        <th>Total Scraped</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                        <!-- New column -->
+                     </tr>
+                  </thead>
+                  <tbody id="table-body">
+                     <!-- Sample row; Add more rows as needed -->
+                     <tr>
+                        <td><span class="placeholder">&nbsp;</span></td>
+                        <td><span class="placeholder">&nbsp;</span></td>
+                        <td><span class="placeholder">&nbsp;</span></td>
+                        <td><span class="placeholder">&nbsp;</span></td>
+                        <td><span class="placeholder">&nbsp;</span></td>
+                     </tr>
+                     <!-- Add more rows with icons as needed -->
+                  </tbody>
+               </table>
+            </div>
+         </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/newdash.js') }}"></script>
+</body>
+</html>
