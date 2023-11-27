@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-Minimalist-Background-Image.jpg') no-repeat;
+    background: url('../img/sitebg.jpg') no-repeat;
     background-size: cover;
     background-attachment: scroll;
     background-position: center;
@@ -85,6 +85,31 @@
     
 }
 
+.fillScreen{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    visibility: hidden;
+    z-index: 199;
+}
+.fillScreen.active{
+    visibility: visible;
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+}
+
+.fillScreen.active .wrapper {
+    filter: none; /* This line will remove the blur effect on the wrapper */
+}
+
 .wrapper {
     position: relative;
     width: 400px;
@@ -93,13 +118,14 @@
     border: 2px solid rgba(255,255,255,.5);
     border-radius: 20px;
     backdrop-filter: blur(50px);
-    box-shadow: 0 0 30px rgba(0 0 0 .5);
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     transform: scale(0);
     transition: transform .5s ease,  height .2s ease;
+    filter: none;
 }
 
 .wrapper.active-popup {
@@ -108,6 +134,7 @@
 
 .wrapper.active {
     height: 460px;
+    filter: none;
 }
 
 .wrapper .form-box {
@@ -283,26 +310,61 @@
     display: grid;
 }
 
+/*.home {*/
+/*    width: 100%;*/
+/*    margin: auto;*/
+/*    text-align: center;*/
+/*    padding-top: 100px;*/
+/*    background-color: #f7f7f7;*/
+/*}*/
 .home {
+    height: 100vh;
     width: 100%;
-    margin: auto;
-    text-align: center;
-    padding-top: 100px;
-    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F7f7f7; /* Adjust the background color as needed */
 }
 
- h1 {
-    font-size: 36px;
-    font-weight: 600;
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Adjust the width of the content area */
+    padding-left: 50px;
+    padding-right: 50px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
- p {
-    color: #777;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 22px;
-    padding: 10px;
+.left {
+    flex: 1;
+    font-size: 4em; /* Adjust font size as needed */
+    font-weight: bold;
+    line-height: 1.2;
 }
+
+.left h1{
+    margin-left: 40px;
+}
+
+.right {
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right img {
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
+    max-height: 80vh; /* Adjust height as needed */
+}
+.red-text {
+    color: red;
+    /* Additional styles for the red text if needed */
+}
+
 
 .row {
     margin-top: 5%;
@@ -322,52 +384,76 @@
     transition: 0.5s;
 }
 
-h3 {
-    text-align: center;
-    font-weight: 600;
-    margin: 10px 0;
-    
-}
+/*h3 {*/
+/*    text-align: center;*/
+/*    font-weight: 600;*/
+/*    margin: 10px 0;*/
+/*    */
+/*}*/
 
 .type:hover {
     box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
 }
 
 .about {
-    width: 100%;
-    margin: auto;
     text-align: center;
-    padding-top: 30px;
-    background-color: #f0eded;
+    padding: 50px 50px;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+}
+
+.about h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.about p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+
+.about .row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    margin-bottom: 40px;
 }
 
 .about-col {
-    flex-basis: 31%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-    margin-bottom: 5%;
-    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .about-col img {
-    width: 100%;
-    border-radius: 10px;
-    height: 250px;
-    width: 220px;
+    width: 150px;
+    height: 150px;
+    background-size: contain;
     border-radius: 50%;
-    border: 3px solid #000000;
-    box-shadow: 5px 5px 10px #888888;
+    margin-bottom: 20px;
+}
+.about-col:nth-child(2) img {
+    transform: rotate(-11deg);
+}
+.about-col h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
 .about-col p {
-    padding: 10;
-    padding-bottom: 0;
-    
-}
-
-.about-col h3 {
-    margin-top: 16px;
-    margin-bottom: 15px;
-
+    color: #333;
+    line-height: 1.6;
+    font-size: 15px;
+    text-align: center;
 }
 
 .contact {
@@ -388,4 +474,60 @@ h3 {
 }
 h4 {
     margin-top: 0;
+}
+
+#githubSection {
+    text-align: center;
+    padding: 50px;
+    background-color: #f5f5f5;
+}
+
+#githubSection h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#githubSection p {
+    color: #777;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.github-card {
+    display: inline-block;
+    text-align: left;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* To center the card */
+    max-width: calc(100% - 40px); /* Adjust the maximum width as needed */
+}
+.inner-githubcard{
+    display: flex;
+    flex-direction: row;
+}
+.github-card img {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+
+.project-info h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.project-info p {
+    margin-bottom: 5px;
+}
+
+.project-info a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.project-info a:hover {
+    text-decoration: underline;
 }

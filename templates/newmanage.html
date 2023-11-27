@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/newdash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/newmanage.css') }}">
-{#    <link rel="stylesheet" href="newdash.css">#}
-{#    <link rel="stylesheet" href="newmanage.css">#}
-    <!--
-    -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    
-    <title>Dashboard</title>
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <title>Manage site-Scrapius</title>
 </head>
 <body>
     
@@ -55,29 +51,36 @@
                             <input type="text" placeholder="Enter Description tag schema" id="tag3" name="desc">
                         </div><br>
                         <div class="tag1">
-                            <input type="text" placeholder="Enter Image tag schema" id="tag3" name="img">
+                            <input type="text" placeholder="Enter Image tag schema" id="tag4" name="img">
                         </div><br>
                         <div class="tag1">
-                            <input type="text" placeholder="Enter Link tag schema" id="tag3" name="link">
+                            <input type="text" placeholder="Enter Link tag schema" id="tag5" name="link">
                         </div><br>
                         <div class="button">
-                            <button class="btn">Add Site</button> 
-                            <button class="btn">TEST</button> 
+                            <button class="btn" type="submit">Add Site</button>
+                            <button class="btn" id="testSiteBtn" type="button">Test Site</button>
                         </div>
                         
                     </form>
                 </div>
             <div class="container2">
-                    <h3>Resposive Page</h3><br>
-                    <div> </div>
-                </div>
+                <h3>Test response</h3><br>
+                <p id="myTestResponseText"> </p>
+            </div>
         </div>
+        <div class="instructions">
+    <h3>Instructions for Site Usage</h3>
+    <ul>
+        <li>1. Only copy the element you need to get scraped</li>
+        <li>2. Make sure parent element must contains class or id attribute.</li>
+        <li>3. It will be best practice, if all elements contains claas or id attributes. It's not necessary for all elements except parent</li>
+        <li>4. <b>Best Practice : </b> Before adding site make sure test it first.</li>
+        <li>5. Test Response will be displayed in the test response Box.</li>
+    </ul>
+</div>
     </div>
-            
-{#          <script src="managesite.js"></script>#}
-{#          <script src="newmanage.js"></script>#}
-        <script src="{{ url_for('static', filename='js/managesite.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/newmanage.js') }}"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/json-formatter-js@9.0.0/dist/json-formatter.min.js"></script>#}
+    <script src="{{ url_for('static', filename='js/newmanage.js') }}"></script>
 
     </body>
 </html>

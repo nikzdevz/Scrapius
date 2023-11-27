@@ -1,161 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-           Login Page 
-        </title>
-{#        <link rel="stylesheet" href="login.css">#}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    </head>
-    <body>
-        <div class="main-content">
-            <section class="header">
-                <h2 class="logo">Scrapius</h2>
-                <nav class="navigation">
-                    <a href="#home">Home</a>
-                    <a href="#about">About Us</a>
-                    <a href="#contact">Contact</a>
-                    <button class="btnLogin-popup">Login</button>
-                </nav>
-            </section>
-            <section>
-                <div class="text-box">
-                    <h1>Scrape the web, shine like a star!</h1>
-                    <p>You need our scraping, let us show you why!</p>
-                </div>
-                <div class="wrapper">
-                    <span class="icon-close">
-                        <ion-icon name="close"></ion-icon>
-                    </span>
-                    <div class="form-box login">
-                        <h2>Login</h2>
-                        <form action="/userLogin" method="post">
-                            <div class="input-box">
-                        <span class="icon"><ion-icon name="mail"></ion-icon></span>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>
+         Scrapius - Lets Automate the Scraping
+      </title>
+      {#
+      <link rel="stylesheet" href="login.css">
+      #}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   </head>
+   <body>
+      <div class="main-content">
+         <section class="header">
+            <h2 class="logo">Scrapius</h2>
+            <nav class="navigation">
+               <a href="#home">Home</a>
+               <a href="#about">About Us</a>
+               <a href="#contact">GitHub</a>
+               <button class="btnLogin-popup">Login</button>
+            </nav>
+         </section>
+         <section>
+            <div class="text-box">
+               <h1>Scrape the web, shine like a star!</h1>
+               <p>You need our scraping, let us show you why!</p>
+            </div>
+
+             <div class="fillScreen">
+                 <div class="wrapper">
+               <span class="icon-close">
+                  <ion-icon name="close"></ion-icon>
+               </span>
+               <div class="form-box login">
+                  <h2>Login</h2>
+                  <form action="/userLogin" method="post">
+                     <div class="input-box">
+                        <span class="icon">
+                           <ion-icon name="mail"></ion-icon>
+                        </span>
                         <input type="email" name="mail" required>
-
                         <label>Email</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-
+                     </div>
+                     <div class="input-box">
+                        <span class="icon">
+                           <ion-icon name="lock-closed"></ion-icon>
+                        </span>
                         <input type="password" name="password" required>
-
                         <label>Password</label>
-                    </div>
-                    <div class="remember-forgot">
+                     </div>
+                     <div class="remember-forgot">
                         <label><input type="checkbox">Remember me</label>
                         <a href="#">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn">Login</button>
-                    <div class="login-register">
+                     </div>
+                     <button type="submit" class="btn">Login</button>
+                     <div class="login-register">
                         <p>Don't have an account? <a href="#" class="register-link">Register</a></p>
-                    </div>
-                        </form>
-                    </div>
-        
-                    <div class="form-box register">
-                        <h2>Registration</h2>
-                        <form action="/userRegister">
-                            <h2>Registration</h2>
-                <form action="/userRegister" method="post">
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="person"></ion-icon></span>
+                     </div>
+                  </form>
+               </div>
+               <div class="form-box register">
+                  <h2>Registration</h2>
+                  <form action="/userRegister" method="post">
+                     <div class="input-box">
+                        <span class="icon">
+                           <ion-icon name="person"></ion-icon>
+                        </span>
                         <input type="text" name="username" required>
                         <label>Username</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon></ion-icon></span>
+                     </div>
+                     <div class="input-box">
+                        <span class="icon">
+                           <ion-icon></ion-icon>
+                        </span>
                         <input type="email" name="mail" required>
-
                         <label>Email</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-
+                     </div>
+                     <div class="input-box">
+                        <span class="icon">
+                           <ion-icon name="lock-closed"></ion-icon>
+                        </span>
                         <input type="password" name="password" required>
-
                         <label>Password</label>
-                    </div>
-                    <div class="remember-forgot">
+                     </div>
+                     <div class="remember-forgot">
                         <label><input type="checkbox">I agree to the terms & conditions</label>
-                    </div>
-                    <button type="submit" class="btn">Register</button>
-                    <div class="login-register">
+                     </div>
+                     <button type="submit" class="btn">Register</button>
+                     <div class="login-register">
                         <p>Already have an account? <a href="#" class="login-link">Login</a></p>
-                    </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-            
-            
+                     </div>
+                  </form>
+               </div>
+            </div>
+             </div>
+
+         </section>
+      </div>
+      <section class="home">
+    <div class="content">
+        <div class="left">
+            <h1>MORE<br>THAN<br>JUST<br><span class="red-text">SCRAPING</span></h1>
         </div>
-        <section class="home">
-            <h1 id="home">Welcome to Scrapius - An Automated Website</h1>
-            <p>Data scraping is commonly manifest in web scraping, the process of using an application to extract valuable information from a website.</p>
+        <div class="right">
+            <div id="lottie-container"></div>
 
-            <div class="row">
-                <div class="type">
-                    <h3>Manual Web Scraping</h3>
-                    <p>Manual web scraping is the process of extracting data from websites by manually inspecting the HTML structure and copying the relevant information. 
-                    This method is often used when automated scraping is not feasible or allowed due to legal or ethical considerations.
-                    Manual web scraping is a time-consuming process, and it may not be suitable for large-scale data extraction. 
-                    It is essential to be respectful of website policies, use scraping responsibly, and consider alternative methods if scraping programmatically is more practical or allowed.</p>
-                </div>
-                <div class="type">
-                    <h3>Automated Web Scraping</h3>
-                    <p>Automated web scraping is the process of programmatically extracting data from websites using scripts or software tools. 
-                    This method is efficient for large-scale data extraction tasks and is commonly employed for various purposes, such as data analysis, research, and business intelligence.
-                    Automated web scraping is powerful and efficient, but it comes with responsibilities. 
-                    Practitioners should be mindful of legal and ethical guidelines, respect the website's policies, and ensure that their scraping activities do not negatively impact the target website.</p>
-                </div>
+        </div>
+    </div>
+</section>
+      <section id="about" class="about">
+         <h1 id="devTitle">Developers</h1>
+         <div class="row">
+            <div class="about-col">
+               <img src="{{ url_for('static', filename='img/home1.png') }}">
+               <h3>Nikhil Kumar Gupta</h3>
+               <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
             </div>
-        </section>
-        
-        <section class="about">
-            <h1 id="about">About Us</h1>
-            <p>Who We Are</p>
-
-            <div class="row">
-                <div class="about-col">
-                    <img src="home1.png">
-                    <h3>Nikhil Kumar Gupta</h3>
-                    <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
-                </div>
-
-                <div class="about-col">
-                    <img src="home3.png">
-                    <h3>Shalini Yadav</h3>
-                    <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
-                </div>
-
-                <div class="about-col">
-                    <img src="home.png">
-                    <h3>Sarishti Gupta</h3>
-                    <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
-                </div>
+            <div class="about-col">
+               <img src="{{ url_for('static', filename='img/home3.png') }}">
+               <h3>Shalini Yadav</h3>
+               <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
             </div>
-            <div class="row2">
-                <h4 id="contact">Contact Info</h4>
-
-                <div class="home-sci">
-                    <a href="#"><i class='bx bxl-github'></i></a>
-                    <a href="#"><i class='bx bxl-linkedin' ></i></a>
-                    <a href="#"><i class='bx bxs-envelope'></i></a>
-                </div>
+            <div class="about-col">
+               <img src="{{ url_for('static', filename='img/home.png') }}">
+               <h3>Sarishti Gupta</h3>
+               <p>I'm a dedicated front-end developer with a passion for turning ideas into captivating digital realities. My journey in web development has been a fusion of creativity and coding, where I specialize in transforming design concepts into interactive and user-focused websites. Proficient in HTML, CSS, and JavaScript, I leverage my expertise to build seamless, cross-browser experiences.</p>
             </div>
-        </section>
+         </div>
+      </section>
 
+      <section id="githubSection">
+<h2>Open Source!!</h2>
+    <p>Our code is available at GitHub</p>
 
-{#        <script src="script.js"> </script>#}
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    </body>
+    <div class="github-card">
+        <div class="inner-githubcard">
+            <img src="{{ url_for('static', filename='img/github.png') }}" alt="GitHub Logo">
+            <div class="project-info">
+                <h3>nikzdevz/Scrapius</h3>
+                <p><a href="https://github.com/nikzdevz/Scrapius" target="_blank">https://github.com/nikzdevz/Scrapius</a></p>
+            </div>
+        </div>
+    </div>
+      </section>
+      {#        <script src="script.js"> </script>#}
+      <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.7.4/build/player/lottie.min.js"></script>
+
+   </body>
 </html>

@@ -16,7 +16,8 @@ app = Flask(__name__)
 
 @app.route('/blog/<parameter_name>')
 def testTool(parameter_name):
-    return render_template('blog.html')
+
+    return render_template('blog.html', regdata=parameter_name.capitalize())
 
 
 @app.route('/fetchData')
@@ -78,16 +79,18 @@ def fetchData():
 
 
 # Edit Below
-@app.route('/testing', methods=['POST'])
+@app.route('/testing', methods=['GET','POST'])
 def testing():
+    # print("Accessed testing")
     if request.method == 'POST':
-        paramKey = request.form.keys()
+        data = request.json
+        paramKey = request.json.keys()
         sData = {}
         for key in paramKey:
             if key == 'url':
-                sData["url"] = request.form[key]
-            elif request.form[key] != "":
-                soup = BeautifulSoup(request.form[key], 'html.parser')
+                sData["url"] = data.get(key)
+            elif data.get(key) != "":
+                soup = BeautifulSoup(data.get(key), 'html.parser')
                 outerTag = soup.find()
                 sData[key] = {
                     "type": outerTag.name,
@@ -100,7 +103,8 @@ def testing():
                 #     return f'{request.form[key]} do not contains id or class attribute.'
                 # else:
         testScrap = testingtool.TestMyScraping(sData)
-        return f'{testScrap.getReturnValue()}'
+        # print("reaced out of loop 1")
+        return str(json.dumps(testScrap.getReturnValue()))
     return ""
 
 

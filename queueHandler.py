@@ -77,8 +77,11 @@ class scrap_handler:
                         chkUrl = str(eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src'))
                         if not chkUrl.startswith('http') :
                             chkUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('data-src')
+                        if not str(chkUrl).startswith('http'):
+                            chkUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('data-lazy-src')
                         m_values[keys] = chkUrl
                     elif keys != 'parent':
+                        # print(str(eachItem.find(m_attrs[keys]["type"])))
                         m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text.strip() if (
                             eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])) else ""
                 # print("My Value Heavding => " + m_values['heading'])

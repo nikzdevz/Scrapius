@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="newdash.css">#}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/newdash.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newdash.css') }}">
     <title>Dashboard</title>
 </head>
 <body>
@@ -15,15 +14,18 @@
             <div class="logo">
                 <h1>Scra<span>Pius</span></h1>
             </div>
-            <div class="user-profile">
-                <img src="{{ url_for('static', filename='img/profile-icon.png') }}" alt="Your Image" id="userImage">
-                <div class="dropdown" id="dropdown">
-                    <ul>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#" id="logout">Logout</a></li>
-                    </ul>
-                </div>
-            </div>  
+            <div class="header-right">
+        <p class="blogUrlText"><a class="custom-link" href="/blog/{{ my_data['username'] }}">127:0.0.1:5000/blog/{{ my_data['username'] }}</a></p>
+        <div class="user-profile">
+            <img src="{{ url_for('static', filename='img/profile-icon.png') }}" alt="Your Image" id="userImage">
+            <div class="dropdown" id="dropdown">
+                <ul>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
         </div>
         <div class="overview">
             <div class="title">
