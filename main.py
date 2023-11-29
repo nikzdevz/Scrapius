@@ -16,7 +16,6 @@ app = Flask(__name__)
 
 @app.route('/blog/<parameter_name>')
 def testTool(parameter_name):
-
     return render_template('blog.html', regdata=parameter_name.capitalize())
 
 
@@ -194,6 +193,7 @@ def userRegister():
             db_cursor.execute(query, ('aa', email, password, username))
             db_connection.commit()
             session['loggedInEmail'] = email;
+            session['loggedInUserName'] = username
             return redirect('/dashboard')
         else:
             param = {"isUniqueUser": "True"}
