@@ -82,8 +82,7 @@ class scrap_handler:
                         m_values[keys] = chkUrl
                     elif keys != 'parent':
                         # print(str(eachItem.find(m_attrs[keys]["type"])))
-                        m_values[keys] = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).text.strip() if (
-                            eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])) else ""
+                        m_values[keys] = eachItem.find(m_attrs[keys]["type"]).text.strip()
                 # print("My Value Heavding => " + m_values['heading'])
                 if m_values['heading'] != "" :
                     query = "Select * from scrapeddata where Site=(%s) AND user=(%s) AND title=(%s) Limit 1"

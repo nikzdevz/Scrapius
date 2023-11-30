@@ -40,27 +40,3 @@ class TestMyScraping:
 
     def getReturnValue(self):
         return self.returnValue
-#
-# data = {
-#     "url" : "https://economictimes.indiatimes.com/news/india",
-#     "parent": {
-#         "type": "div",
-#         "atr": {
-#             "id": None,
-#             "class": "eachStory"
-#         }
-#     },
-#     "heading": {
-#         "type": "a",
-#         "atr": {
-#             "class": ""
-#         }
-#     },
-#     "link": {
-#         "type": "a",
-#         "atr": {
-#             "class": ""
-#         }
-#     }
-# }
-# testMy = TestMyScraping(data)

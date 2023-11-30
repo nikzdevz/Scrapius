@@ -3,8 +3,6 @@ import os
 from datetime import datetime
 
 from bs4 import BeautifulSoup
-
-
 def getAttrsDict(attributes):
     mAttrDict = {}
     for attribute, value in attributes.items():
