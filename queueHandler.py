@@ -74,11 +74,16 @@ class scrap_handler:
                             mUrl = str(parsed_url.scheme + "://" + parsed_url.netloc) + mUrl
                         m_values[keys] = mUrl
                     elif keys == 'img':
+                        # if url.startswith('https://www.livemint.com/technology') :
+                        #     print(str(eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"])))
                         chkUrl = str(eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src'))
-                        if not chkUrl.startswith('http') :
+                        if not chkUrl.startswith('http') or chkUrl.endswith('.webp'):
                             chkUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('data-src')
+                            if chkUrl is None:
+                                chkUrl = str(eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('src'))
                         if not str(chkUrl).startswith('http'):
                             chkUrl = eachItem.find(m_attrs[keys]["type"], m_attrs[keys]["atr"]).get('data-lazy-src')
+                        print(chkUrl)
                         m_values[keys] = chkUrl
                     elif keys != 'parent':
                         # print(str(eachItem.find(m_attrs[keys]["type"])))

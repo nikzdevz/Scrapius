@@ -1,1 +1,92 @@
-{"https://igetintopc.com/": {"parent": {"type": "div", "atr": {"id": "", "class": "post-details"}}, "heading": {"type": "h2", "atr": {"id": "", "class": "title"}}, "desc": {"type": "div", "atr": {"id": "", "class": "post-content"}}, "img": {"type": "img", "atr": {"id": "", "class": "attachment-140x140"}}, "link": {"type": "a", "atr": {"id": "", "class": ""}}}}
+{
+  "https://igetintopc.com/": {
+    "parent": {
+      "type": "div",
+      "atr": {
+        "id": "",
+        "class": "post-details"
+      }
+    },
+    "heading": {
+      "type": "h2",
+      "atr": {
+        "id": "",
+        "class": "title"
+      }
+    },
+    "desc": {
+      "type": "div",
+      "atr": {
+        "id": "",
+        "class": "post-content"
+      }
+    },
+    "img": {
+      "type": "img",
+      "atr": {
+        "id": "",
+        "class": "attachment-140x140"
+      }
+    },
+    "link": {
+      "type": "a",
+      "atr": {
+        "id": "",
+        "class": ""
+      }
+    }
+  },
+  "https://www.kdnuggets.com/": {
+    "parent": {
+      "type": "li",
+      "atr": {
+        "id": "",
+        "class": "li-has-thumb"
+      }
+    },
+    "heading": {
+      "type": "a",
+      "atr": {
+        "id": "",
+        "class": ""
+      }
+    },
+    "link": {
+      "type": "a",
+      "atr": {
+        "id": "",
+        "class": ""
+      }
+    }
+  },
+  "https://www.livemint.com/technology": {
+    "parent": {
+      "type": "div",
+      "atr": {
+        "id": "",
+        "class": "listtostory"
+      }
+    },
+    "heading": {
+      "type": "a",
+      "atr": {
+        "id": "",
+        "class": ""
+      }
+    },
+    "img": {
+      "type": "img",
+      "atr": {
+        "id": "",
+        "class": "lozad"
+      }
+    },
+    "link": {
+      "type": "a",
+      "atr": {
+        "id": "",
+        "class": ""
+      }
+    }
+  }
+}
